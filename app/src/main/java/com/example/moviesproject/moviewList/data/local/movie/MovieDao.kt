@@ -1,8 +1,8 @@
 package com.example.moviesproject.moviewList.data.local.movie
 
 import androidx.room.Dao
+import androidx.room.Query
 import androidx.room.Upsert
-import retrofit2.http.Query
 
 @Dao
 interface MovieDao {
