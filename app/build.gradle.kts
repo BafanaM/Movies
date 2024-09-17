@@ -82,13 +82,12 @@ dependencies {
 
     // For Kotlin coroutines test
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    testImplementation ("io.mockk:mockk:1.12.0")
 
     // For AndroidX test
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation ("org.mockito:mockito-core:4.8.0")
     testImplementation ("org.mockito.kotlin:mockito-kotlin:5.0.0")
-
-
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.8.0")
