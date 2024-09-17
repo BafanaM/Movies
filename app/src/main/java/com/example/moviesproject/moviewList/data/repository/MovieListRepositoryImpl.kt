@@ -57,7 +57,7 @@ class MovieListRepositoryImpl @Inject constructor(
 
             }
 
-            val movieEntities = movieListFromApi.results.let { 
+            val movieEntities = movieListFromApi.results.let {
                 it.map { movieDto ->
                     movieDto.toMovieEntity(category)
                 }

@@ -16,7 +16,7 @@
         android:theme="@style/Theme.MoviesProject"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".moviewList.view.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MoviesProject">

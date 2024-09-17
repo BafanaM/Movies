@@ -30,16 +30,15 @@ class MovieListVieModel @Inject constructor(
     fun onEvent(event: MovieListUiEvent) {
         when(event) {
             MovieListUiEvent.Navigate -> {
-
-                _movieListState.update {
-                    it
-                }
-
+                // Handle navigation if needed
             }
             is MovieListUiEvent.Paginate -> {
-                if (event.category == Category.NOWPLAYING){
+                if (event.category == Category.NOWPLAYING) {
                     getNowPlayingMovies(true)
                 }
+            }
+            MovieListUiEvent.Refresh -> {
+                refreshMovies()
             }
         }
     }
@@ -61,31 +60,63 @@ class MovieListVieModel @Inject constructor(
                             it.copy(isLoading = false)
                         }
                     }
-
                     is Resource.Success -> {
                         result.data?.let { nowPlayingList ->
                             _movieListState.update {
                                 it.copy(
                                     nowPlayingMovieList = movieListState.value.nowPlayingMovieList
-                                    + nowPlayingList.shuffled(),
-                                    nowPlayingListPage = movieListState.value.nowPlayingListPage + 1
+                                            + nowPlayingList,
+                                    nowPlayingListPage = movieListState.value.nowPlayingListPage + 1,
+                                    isLoading = false
                                 )
                             }
                         }
-
                     }
-                     is Resource.Loading -> {
-                         _movieListState.update {
-                             it.copy(isLoading = result.isLoading)
-                         }
-
-                     }
+                    is Resource.Loading -> {
+                        _movieListState.update {
+                            it.copy(isLoading = result.isLoading)
+                        }
+                    }
                 }
             }
-
         }
-
     }
 
+    private fun refreshMovies() {
+        viewModelScope.launch {
+            _movieListState.update {
+                it.copy(isLoading = true)
+            }
 
+            movieListRepository.getMovieList(
+                forceFetchFromRemote = true,
+                category = Category.POPULAR,
+                page = 1
+            ).collectLatest { result ->
+                when(result) {
+                    is Resource.Error -> {
+                        _movieListState.update {
+                            it.copy(isLoading = false)
+                        }
+                    }
+                    is Resource.Success -> {
+                        result.data?.let { nowPlayingList ->
+                            _movieListState.update {
+                                it.copy(
+                                    nowPlayingMovieList = nowPlayingList.shuffled(),
+                                    nowPlayingListPage = 2,
+                                    isLoading = false
+                                )
+                            }
+                        }
+                    }
+                    is Resource.Loading -> {
+                        _movieListState.update {
+                            it.copy(isLoading = result.isLoading)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
