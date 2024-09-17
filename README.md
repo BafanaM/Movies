@@ -15,7 +15,7 @@ Coil - for images<br>
 **Getting Started**<br>
 Please follow the steps below:<br>
 
-Clone the repository: git clone https://github.com/BafanaM/Movies.git<br>
+Clone the master branch on repository: git clone https://github.com/BafanaM/Movies.git<br>
 Build and run the project using Android Studio.<br>
 Generate your own API Key from https://www.themoviedb.org/<br>
 Search for the `MoviesApi` file in the project and replace `"OWN KEY"` on the `API_KEY` constant with your own key.<br>
