@@ -10,11 +10,10 @@ import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 
+@ExperimentalCoroutinesApi
 class MainCoroutineRule(
-    private val dispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
+    val dispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
 ) : TestRule {
-    val testDispatcher get() = dispatcher
-    val testScope get() = TestCoroutineScope(dispatcher)
 
     override fun apply(base: Statement, description: Description): Statement {
         return object : Statement() {

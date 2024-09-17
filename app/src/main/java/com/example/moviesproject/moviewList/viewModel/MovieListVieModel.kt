@@ -43,7 +43,7 @@ class MovieListVieModel @Inject constructor(
         }
     }
 
-    private fun getNowPlayingMovies(forceFetchFromRemote: Boolean) {
+    fun getNowPlayingMovies(forceFetchFromRemote: Boolean) {
         viewModelScope.launch {
             _movieListState.update {
                 it.copy(isLoading = true)
